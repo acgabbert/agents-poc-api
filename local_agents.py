@@ -2,7 +2,7 @@ import os
 
 from dotenv import load_dotenv
 from fastapi import HTTPException
-from agents import Agent
+from agents import Agent, set_tracing_disabled
 from agents.extensions.models.litellm_model import LitellmModel
 
 
@@ -11,6 +11,8 @@ load_dotenv()
 # Get environment variables
 default_model = os.getenv("OPENROUTER_MODEL", "openrouter/anthropic/claude-3.7-sonnet")
 key = os.getenv("OPENROUTER_API_KEY")
+
+set_tracing_disabled(True)
 
 concise_assistant = Agent(
     name="Concise Assistant",
