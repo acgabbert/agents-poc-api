@@ -1,4 +1,4 @@
-This is a basic proof of concept repo for using the OpenAI Agents SDK with FastAPI. 
+This is a basic proof of concept repo for using the [OpenAI Agents SDK](https://github.com/openai/openai-agents-python) with FastAPI. 
 
 To run the project in development mode, run the following:
 ```
