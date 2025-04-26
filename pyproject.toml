@@ -1,0 +1,13 @@
+[project]
+name = "agents-api-test"
+version = "0.1.0"
+description = "A proof of concept for exposing agents built with the OpenAI Agents SDK"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi>=0.115.12",
+    "litellm>=1.67.2",
+    "openai-agents>=0.0.13",
+    "python-dotenv>=1.1.0",
+    "uvicorn>=0.34.2",
+]

@@ -1,0 +1,20 @@
+This is a basic proof of concept repo for using the OpenAI Agents SDK with FastAPI. 
+
+To run the project in development mode, run the following:
+```
+uvicorn main:app --reload
+```
+
+Test the `/chat` endpoint:
+```
+curl -X POST http://127.0.0.1:8000/chat \
+-H "Content-Type: application/json" \
+-d '{"input": "Construct a basic curl request to test a local FastAPI app"}'
+```
+
+Test the streaming `/chat/stream/` endpoint:
+```
+curl -X POST http://127.0.0.1:8000/chat/stream \
+-H "Content-Type: application/json" \
+-d '{"input": "Construct a basic curl request to test a local FastAPI app"}'
+```
