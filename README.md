@@ -19,7 +19,14 @@ curl -X POST http://127.0.0.1:8000/chat/stream \
 -d '{"input": "Construct a basic curl POST request to test a local FastAPI app"}'
 ```
 
-Test the streaming `/agents/` endpoint:
+Test an agent with tools:
+```
+curl -X POST http://127.0.0.1:8000/chat \
+-H "Content-Type: application/json" \
+-d '{"input": "What is the weather in New York City?", "agent_name": "weather_agent"}'
+```
+
+Test the `/agents/` endpoint:
 ```
 curl http://127.0.0.1:8000/agents
 ```

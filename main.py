@@ -1,14 +1,15 @@
+import json
 from typing import List
-from fastapi import Depends, FastAPI, HTTPException
+from fastapi import FastAPI, HTTPException
 from fastapi.responses import StreamingResponse
 
 import os
 from dotenv import load_dotenv
 
-from agents import Agent, RunResult, RunResultStreaming, Runner
+from agents import RunResult, RunResultStreaming, Runner
 from openai.types.responses import ResponseTextDeltaEvent
 
-from local_agents import DEFAULT_AGENT_NAME, agent_registry, get_agent_by_name
+from local_agents import agent_registry, get_agent_by_name
 
 from models import ChatRequest, ChatResponse
 
@@ -21,9 +22,14 @@ key = os.getenv("OPENROUTER_API_KEY")
 
 @app.post("/chat", response_model=ChatResponse)
 async def chat(req: ChatRequest) -> ChatResponse:
+    """
+    Chat with an agent.
+    """
     try:
         agent = get_agent_by_name(req.agent_name)
         result: RunResult = await Runner.run(agent, input=req.input)
+        for resp in result.raw_responses:
+            print(resp.output)
         return {
             "output": result.final_output,
             "usage": [response.usage for response in result.raw_responses],
@@ -36,8 +42,12 @@ async def chat(req: ChatRequest) -> ChatResponse:
 
 @app.post("/chat/stream")
 async def chat_stream(req: ChatRequest) -> StreamingResponse:
+    """
+    Stream a chat response.
+    """
     try:
         agent = get_agent_by_name(req.agent_name)
+        # don't await here because we'll be streaming back to the client
         run: RunResultStreaming = Runner.run_streamed(agent, input=req.input)
         async def event_source():
             try:
