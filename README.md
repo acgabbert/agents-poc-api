@@ -30,3 +30,6 @@ Test the `/agents/` endpoint:
 ```
 curl http://127.0.0.1:8000/agents
 ```
+
+## Tracing with [MLflow](https://docs.litellm.ai/docs/observability/mlflow)
+If you have a MLflow server running locally, the agents LiteLLM integration enables tracing with just a few lines of code.

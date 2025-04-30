@@ -1,3 +1,5 @@
+import litellm
+import mlflow
 import os
 
 from dotenv import load_dotenv
@@ -15,6 +17,11 @@ default_model = os.getenv("OPENROUTER_MODEL", "openrouter/anthropic/claude-3.7-s
 key = os.getenv("OPENROUTER_API_KEY")
 
 set_tracing_disabled(True)
+
+mlflow.set_tracking_uri(uri="http://127.0.0.1:8080")
+mlflow.litellm.autolog()
+litellm.callbacks = ["mlflow"]
+mlflow.set_experiment("agents")
 
 claude_3_7 = LitellmModel(model=default_model, api_key=key)
 gemini_2_0_flash = LitellmModel(model="openrouter/google/gemini-2.5-flash-preview", api_key=key)
